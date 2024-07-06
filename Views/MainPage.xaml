@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:converters="clr-namespace:Ejercicio2._1_Grupo2.Converters"
+             x:Class="Ejercicio2._1_Grupo2.Views.MainPage"
+             Title="MainPage">
+
+    <ContentPage.Resources>
+        <converters:ImageSvgToImageSource x:Key="Ima" />
+    </ContentPage.Resources>
+
+    <StackLayout>
+
+        <!-- Espaciador para separar el Frame de la parte superior -->
+        <BoxView HeightRequest="20" BackgroundColor="Transparent" />
+
+        <!-- Label para mostrar el mensaje predeterminado -->
+        <Label x:Name="MensajePicker"
+               Text="Seleccione un continente"
+               FontSize="18"
+               TextColor="Black"
+               IsVisible="True"
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Margin="10,0"/>
+
+        <!-- ComboBox -->
+        <Picker x:Name="ComboRegiones"
+                Margin="10,0"
+                Title="Seleccione un continente"
+                FontSize="18"
+                TitleColor="White"
+                TextColor="Black"
+                SelectedIndexChanged="ComboRegiones_SelectedIndexChanged">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Africa</x:String>
+                    <x:String>America</x:String>
+                    <x:String>Asia</x:String>
+                    <x:String>Europe</x:String>
+                    <x:String>Oceania</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+            <Picker.BackgroundColor>White</Picker.BackgroundColor>
+            <!-- Fondo blanco para resaltar el ComboBox -->
+            <Picker.HeightRequest>40</Picker.HeightRequest>
+            <!-- Altura personalizada -->
+        </Picker>
+
+        <!-- ListView -->
+        <ListView x:Name="ListaPaisesRest" 
+                  ItemTapped="ListaPaisesRest_ItemTapped"
+                  Margin="10,20,0,10"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="Center">
+                            <!-- Imagen -->
+                            <Image Source="{Binding flags.png, Converter={StaticResource Ima}}" 
+                               WidthRequest="50" 
+                               HeightRequest="50" 
+                               Aspect="AspectFill"/>
+
+                            <!-- Contenedor para Texto y Detalle -->
+                            <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                                <!-- Texto Principal -->
+                                <Label Text="{Binding NameCountry.common}" 
+                                    TextColor="Black" 
+                                    VerticalOptions="Center"
+                                    FontAttributes="Bold"
+                                    Margin="10,0,0,0"/>
+                                <!-- Detalle -->
+                                <Label Text="{Binding CodeCountry}" 
+                                    TextColor="DarkGreen" 
+                                    VerticalOptions="Center"
+                                    FontSize="Small"
+                                    Margin="10,0,0,0"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
